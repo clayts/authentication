@@ -6,6 +6,6 @@ import (
 
 var baseURL = os.Getenv("BASE_URL")
 var port = os.Getenv("PORT")
-var authPrefix = os.Getenv("AUTHENTICATION_PREFIX")
+var authPrefix = os.Getenv("AUTHENTICATION_PATH")
 var sessionAuthenticationKey = os.Getenv("SESSION_AUTHENTICATION_KEY")
 var sessionEncryptionKey = os.Getenv("SESSION_ENCRYPTION_KEY")

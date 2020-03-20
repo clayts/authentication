@@ -1,6 +1,8 @@
 package authentication
 
 import (
+	"log"
+
 	"github.com/clayts/database"
 )
 
@@ -11,6 +13,7 @@ func init() {
 	initTemplates()
 	initAuth()
 	initRouter()
+	log.Println("authentication initialisation complete")
 }
 
 //Terminate must be called before the process exits
