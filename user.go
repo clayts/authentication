@@ -45,7 +45,7 @@ func (u User) updateProfile(t database.Transaction, gu goth.User) error {
 		return errors.New("cannot assign profile to anonymous user")
 	}
 	profiles := make(map[string]map[string]goth.User)
-	if err := t.Read(u.ID() + "/profiles")(&profiles); err != nil {
+	if err := t.Read(u.ID() + "/profiles")(&profiles); err != nil && err != database.ErrNotFound {
 		return err
 	}
 	if _, ok := profiles[gu.Provider]; !ok {
