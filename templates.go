@@ -14,7 +14,7 @@ func initTemplates() {
 	templates = template.New("").Funcs(template.FuncMap{
 		"Title": strings.Title,
 	})
-	templates = template.Must(templates.ParseGlob("templates/providerSelection.gohtml"))
+	templates = template.Must(templates.ParseGlob("./templates/providerSelection.gohtml"))
 }
 
 func providerSelectionTemplate(w http.ResponseWriter, r *http.Request, providers []string) {
