@@ -1,2 +1,1 @@
-# authentication
-Authentication is a package which can be used to provide basic social authentication on heroku
+# app-fb4c3d0d-1770-4ac6-ac3a-3a
