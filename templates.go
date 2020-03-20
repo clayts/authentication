@@ -20,7 +20,3 @@ func initTemplates() {
 func providerSelectionTemplate(w http.ResponseWriter, r *http.Request, providers []string) {
 	handleError(w, r, templates.ExecuteTemplate(w, "providerSelection.gohtml", Providers()))
 }
-
-func userTemplate(w http.ResponseWriter, r *http.Request, u User) {
-	handleError(w, r, templates.ExecuteTemplate(w, "user.gohtml", u))
-}
