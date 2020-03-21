@@ -28,7 +28,7 @@ func (u User) Profiles(t database.Transaction) []goth.User {
 	}
 	var profileSlice []goth.User
 	profiles := make(map[string]map[string]goth.User)
-	err := t.Read(u.ID() + "/profiles")(&profiles)
+	err := t.Read(u.ID()+"/profiles", &profiles)
 	if err != nil {
 		return nil
 	}
@@ -45,12 +45,12 @@ func (u User) updateProfile(t database.Transaction, gu goth.User) error {
 		return errors.New("cannot assign profile to anonymous user")
 	}
 	profiles := make(map[string]map[string]goth.User)
-	if err := t.Read(u.ID() + "/profiles")(&profiles); err != nil && err != database.ErrNotFound {
+	if err := t.Read(u.ID()+"/profiles", &profiles); err != nil && err != database.ErrNotFound {
 		return err
 	}
 	if _, ok := profiles[gu.Provider]; !ok {
 		profiles[gu.Provider] = make(map[string]goth.User)
 	}
 	profiles[gu.Provider][gu.UserID] = gu
-	return t.Write(u.ID() + "/profiles")(profiles)
+	return t.Write(u.ID()+"/profiles", profiles)
 }

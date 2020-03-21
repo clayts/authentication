@@ -7,7 +7,7 @@ import (
 	"github.com/gorilla/pat"
 )
 
-//Router is the router on which the various login endpoints are set up. You should call something like router.Handle("/", authentication.Router).
+//Router is the router on which the various login endpoints are set up. You should add your own routes and then call http.ListenAndServe
 var Router *pat.Router
 
 func initRouter() {

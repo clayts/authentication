@@ -13,16 +13,16 @@ import (
 func initSession() {
 	insist.IsNil(database.Transact(func(t database.Transaction) error {
 		var auth string
-		err := t.Read("session/authentication")(&auth)
+		err := t.Read("session/authentication", &auth)
 		if err != nil {
 			auth = hex.EncodeToString(securecookie.GenerateRandomKey(64))
-			t.Write("session/authentication")(auth)
+			insist.IsNil(t.Write("session/authentication", auth))
 		}
 		var enc string
-		err = t.Read("session/encryption")(&enc)
+		err = t.Read("session/encryption", &enc)
 		if err != nil {
 			enc = hex.EncodeToString(securecookie.GenerateRandomKey(32))
-			t.Write("session/encryption")(enc)
+			insist.IsNil(t.Write("session/encryption", enc))
 		}
 		gothic.Store = sessions.NewCookieStore(
 			insist.OnByteSlice(hex.DecodeString(auth)),
