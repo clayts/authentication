@@ -100,7 +100,7 @@ func IdentifyUser(r *http.Request) User {
 	return User(id)
 }
 func providerSelectionHandlerFunc(w http.ResponseWriter, r *http.Request) {
-	if u := IdentifyUser(r); u.IsAnonymous() {
+	if IdentifyUser(r).IsAnonymous() {
 		providerSelectionTemplate(w, r, Providers())
 		return
 	}
@@ -108,7 +108,7 @@ func providerSelectionHandlerFunc(w http.ResponseWriter, r *http.Request) {
 	return
 }
 func loginHandlerFunc(w http.ResponseWriter, r *http.Request) {
-	if u := IdentifyUser(r); !u.IsAnonymous() {
+	if !IdentifyUser(r).IsAnonymous() {
 		http.Redirect(w, r, PostLoginURL, http.StatusTemporaryRedirect)
 		return
 	}
@@ -129,7 +129,7 @@ func loginHandlerFunc(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var unregistered bool
-	if handleError(w, r, database.Transact(func(t database.Transaction) error {
+	if handleError(w, r, database.Execute(func(t database.Transaction) error {
 		u := User(profile.Email)
 		if len(u.Profiles(t)) == 0 {
 			unregistered = true
