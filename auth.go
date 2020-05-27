@@ -38,6 +38,9 @@ var ErrorHandlerFunc = func(w http.ResponseWriter, r *http.Request, err error) {
 }
 
 func initAuth() {
+	if baseURL == "" {
+		return
+	}
 	log.Println("initialising authentication at", baseURL+"/"+authPrefix+"/")
 	getParams := func(provider string, keys ...string) []string {
 		var parameters []string
@@ -125,6 +128,7 @@ func loginHandlerFunc(w http.ResponseWriter, r *http.Request) {
 		handleError(w, r, errors.New("profile invalid"))
 		return
 	}
+	//profile.Email is defined here as the unique ID of each user - thus different accounts with the same email will be linked
 	if handleError(w, r, gothic.StoreInSession("user", profile.Email, r, w)) {
 		return
 	}

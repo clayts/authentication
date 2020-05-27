@@ -13,6 +13,9 @@ var Router *pat.Router
 func initRouter() {
 	log.Println("initialising router")
 	Router = pat.New()
+	if baseURL == "" {
+		return
+	}
 	Router.Get("/"+authPrefix+"/login", providerSelectionHandlerFunc)
 	Router.Get("/"+authPrefix+"/logout", logoutHandlerFunc)
 	Router.Get("/"+authPrefix+"/{provider}", loginHandlerFunc)

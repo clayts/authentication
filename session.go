@@ -11,7 +11,10 @@ import (
 )
 
 func initSession() {
-	insist.IsNil(database.Transact(func(t database.Transaction) error {
+	if baseURL == "" {
+		return
+	}
+	insist.IsNil(database.Execute(func(t database.Transaction) error {
 		var auth string
 		err := t.Read("session/authentication", &auth)
 		if err != nil {

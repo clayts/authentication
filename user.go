@@ -7,7 +7,7 @@ import (
 	"github.com/markbates/goth"
 )
 
-//User is a string consisting of some identifier unique amongst users, or a blank string in the case of an anonymous user.
+//User is a string consisting of some identifier unique amongst users (in practice, email address is used), or a blank string in the case of an anonymous user.
 type User string
 
 //IsAnonymous returns true if the user is anonymous
